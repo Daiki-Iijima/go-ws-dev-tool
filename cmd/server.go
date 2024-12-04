@@ -16,12 +16,6 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-type Message struct {
-	X float64 `json:"x"`
-	Y float64 `json:"y"`
-	Z float64 `json:"z"`
-}
-
 func handleConnections(w http.ResponseWriter, r *http.Request) {
 	//	初期のリクエストをWebSocketにアップグレード
 	ws, err := upgrader.Upgrade(w, r, nil)
