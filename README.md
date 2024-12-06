@@ -23,7 +23,7 @@ chmod +x ws
 
 面倒くさい方は、以下のリンクに`-h`フラグをつけたコマンドの説明があります。
 
-[コマンド詳細](https://github.com/Daiki-Iijima/go-ws-dev-tool/docs/ws.md)
+[コマンド詳細](https://github.com/Daiki-Iijima/go-ws-dev-tool/blob/main/docs/ws.md)
 
 ## 使用例
 
