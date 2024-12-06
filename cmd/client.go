@@ -55,6 +55,6 @@ func init() {
 	rootCmd.AddCommand(clientCmd)
 
 	clientCmd.Flags().StringVarP(&wsClientIp, "ip", "i", "127.0.0.1", "接続先のIPを指定します")
-	clientCmd.Flags().StringVarP(&wsClientPort, "port", "p", "8079", "接続先のPortを指定します")
+	clientCmd.Flags().StringVarP(&wsClientPort, "port", "p", "8080", "接続先のPortを指定します")
 	clientCmd.Flags().StringVarP(&wsPath, "url", "u", "/ws", "接続先のパス/URLを指定します")
 }
