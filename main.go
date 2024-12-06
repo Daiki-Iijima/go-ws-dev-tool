@@ -3,7 +3,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 */
 package main
 
-import "ws-server/cmd"
+import "go-ws-dev-tool/cmd"
 
 func main() {
 	cmd.Execute()

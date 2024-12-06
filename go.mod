@@ -1,4 +1,4 @@
-module ws-server
+module go-ws-dev-tool
 
 go 1.23.1
 
