@@ -1,48 +1,79 @@
-# WebSocketテストツール
+# WebSocketテストツール（ws-dev-tool）
 
-## このツールについて
+> WebSocket通信の開発・検証を手軽に行えるCLIツール
 
-WebSocketを用いた通信を実装するときの検証用サーバーとして使用できます
+## 概要
 
-## 準備
+WebSocketを用いた通信を実装するときの検証用サーバー・クライアントとして使用できるCLIツールです。
+サーバー起動、クライアント接続、UDPブロードキャストなどの機能を1つのバイナリで提供します。
+Linux / macOS / Windows 向けのビルド済みバイナリが提供されています。
 
-Windowsの場合は、特に準備は必要なく、実行ファイルをPowerShellやコマンドプロンプトから実行することができます。
+## 技術スタック
 
-### Mac
+- 言語: Go 1.23.1
+- CLIフレームワーク: Cobra
+- WebSocketライブラリ: gorilla/websocket
+- ビルド・リリース: GoReleaser（linux/darwin/windows × amd64/arm64）
 
-Macの場合は、実行ファイルに実行権限を付与する必要があります。
-ターミナルを開いて、バイナリを配置したディレクトリに移動して以下のコマンドを実行してください。
+## 機能
+
+- WebSocketサーバーの起動（ポート指定可能、デフォルト: 8080）
+- WebSocketクライアントの起動（IP・ポート・パス指定可能）
+- UDPブロードキャスト（自分のIPアドレスをLANへ定期配信）
+- シェル補完スクリプトの生成（bash / zsh / fish / PowerShell）
+- コマンドドキュメントの自動生成
+
+## 使い方 / 動かし方
+
+### インストール
+
+[Releases](https://github.com/Daiki-Iijima/go-ws-dev-tool/releases) からお使いのOS・アーキテクチャに合ったバイナリをダウンロードしてください。
+
+Macの場合は実行権限の付与が必要です。
 
 ```sh
 chmod +x ws-dev-tool
 ```
 
-## 使用方法
-
-詳しいコマンドなどは、`-hフラグ`をつけてサブコマンドを実行して確認してください。
-
-面倒くさい方は、以下のリンクに`-h`フラグをつけたコマンドの説明があります。
-
-[コマンド詳細](https://github.com/Daiki-Iijima/go-ws-dev-tool/blob/main/docs/ws.md)
-
-## 使用例
-
 ### WebSocketサーバーを起動する
 
-`7777`ポートを指定してWebSocketサーバーを起動する(指定しない場合のデフォルトポートは、`8080`です)
-
 ```sh
+# デフォルトポート(8080)で起動
+./ws-dev-tool server
+
+# ポートを指定して起動
 ./ws-dev-tool server -p 7777
+
+# UDPブロードキャストと同時に起動
+./ws-dev-tool server -p 7777 --broadcast
 ```
 
 ### WebSocketクライアントを起動する
 
-`IP`、`ポート`、`URL`を指定してWebSocketクライアントで接続します。
-
-`ws://192.168.2.12:8080/aaa`に接続します。
-
 ```sh
+# ws://192.168.2.12:8080/aaa に接続
 ./ws-dev-tool client -i 192.168.2.12 -p 8080 -u aaa
 ```
 
-接続後は、メッセージを入力して`Enter`を押すと、サーバーにメッセージが送信されます。
+接続後はメッセージを入力して `Enter` を押すと、サーバーにメッセージが送信されます。
+
+### UDPブロードキャスト
+
+```sh
+# 自分のIPをLANへブロードキャスト（デフォルトポート: 12345、間隔: 2秒）
+./ws-dev-tool broadcast -p 12345 -i 2
+```
+
+### ヘルプ
+
+```sh
+./ws-dev-tool -h
+./ws-dev-tool server -h
+./ws-dev-tool client -h
+```
+
+詳細は [コマンドドキュメント](https://github.com/Daiki-Iijima/go-ws-dev-tool/blob/main/docs/ws.md) を参照してください。
+
+## 状態
+
+完成・安定稼働中。WebSocket開発時の検証ツールとして実用に足る状態です。GoReleaserによるマルチプラットフォームリリースが整備されています。
